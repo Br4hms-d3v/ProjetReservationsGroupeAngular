@@ -1,0 +1,27 @@
+body, html {
+  height: 100%;
+}
+
+:host {
+  display: block;
+  height: 100vh;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+header {
+  height: 8vh;
+}
+
+main {
+  height: 84vh;
+}
+
+footer {
+  height: 8vh;
+  background-color: black;
+}
