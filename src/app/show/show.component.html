@@ -1,17 +1,159 @@
 <div class="container">
+
+  <div class="row mb-4">
     @for (show of shows; track show.id) {
+      <div class="col-md-2 mb-2">
         <div class="card" style="width: 18rem;">
-            <img src="{{show.posterUrl}}" class="card-img-top" alt="{{show.title}}">
-            <div class="card-body">
-                <p class="card-text">{{ show.title }}</p>
-            </div>
+          <img src="{{ show.posterUrl }}" class="card-img-top" alt="{{ show.title }}">
+          <div class="card-body">
+            <p class="card-text">{{ show.title }}</p>
+          </div>
 
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item">Durée du spectacle: {{ show.duration }} minutes</li>
-                <li class="list-group-item">Date de création: {{ show.created_in | date:'d / MM / y' }}</li>
-                <button type="button" class="btn btn-secondary">Consulter</button>
-            </ul>
-
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">Durée du spectacle: {{ show.duration }} minutes</li>
+            <li class="list-group-item">Date de création: {{ show.created_in | date: 'd / MM / y' }}</li>
+            <button type="button" class="btn btn-secondary">Consulter</button>
+          </ul>
         </div>
+      </div>
     }
+  </div>
+
+  <div class="btn-modal">
+    <div class="col-12 text-center mt-4">
+      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createShow">
+        Ajouter un spectacle
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal pour créer un nouveau spectacle -->
+<!-- Modal de création de spectacle -->
+<div class="modal fade" id="createShow" tabindex="-1" aria-labelledby="createShowLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="createShowLabel">Nouveau spectacle</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <!-- Formulaire pour la création du spectacle -->
+        <form [formGroup]="showForm" (ngSubmit)="onSubmit()">
+
+          <!-- Message de succès ou d'erreur -->
+          <div *ngIf="successMessage" class="alert alert-success">
+            {{ successMessage }}
+          </div>
+          <div *ngIf="errorMessage" class="alert alert-danger">
+            {{ errorMessage }}
+          </div>
+
+          <!-- Titre du spectacle -->
+          <div class="form-group mb-3">
+            <label for="title">Titre</label>
+            <input
+              type="text"
+              id="title"
+              formControlName="title"
+              class="form-control"
+              placeholder="Entrez le titre du spectacle"
+              required
+            />
+            <div *ngIf="showForm.get('title')?.invalid && showForm.get('title')?.touched" class="text-danger">
+              Le titre est requis.
+            </div>
+          </div>
+
+          <!-- Slug du spectacle (généré automatiquement) -->
+          <div class="form-group mb-3">
+            <label for="slug">Slug</label>
+            <input
+              type="text"
+              id="slug"
+              formControlName="slug"
+              class="form-control"
+              [value]="showForm.get('slug')?.value"
+            />
+          </div>
+
+          <!-- URL du poster -->
+          <div class="form-group mb-3">
+            <label for="posterUrl">URL du poster</label>
+            <input
+              type="text"
+              id="posterUrl"
+              formControlName="posterUrl"
+              class="form-control"
+              placeholder="Entrez l'URL du poster"
+            />
+          </div>
+
+          <!-- Durée du spectacle -->
+          <div class="form-group mb-3">
+            <label for="duration">Durée (en minutes)</label>
+            <input
+              type="number"
+              id="duration"
+              formControlName="duration"
+              class="form-control"
+              placeholder="Entrez la durée du spectacle"
+              min="1"
+              required
+            />
+            <div *ngIf="showForm.get('duration')?.invalid && showForm.get('duration')?.touched" class="text-danger">
+              La durée est requise et doit être un nombre supérieur à 0.
+            </div>
+          </div>
+
+          <!-- Date de création (auto-générée) -->
+          <div class="form-group mb-3">
+            <label for="created_in">Date de création</label>
+            <input
+              type="datetime-local"
+              id="created_in"
+              formControlName="created_in"
+              class="form-control"
+              [value]="showForm.get('created_in')?.value"
+            />
+          </div>
+
+          <!-- Spectacle réservable -->
+          <div class="form-group form-check mb-3">
+            <input
+              type="checkbox"
+              id="bookable"
+              formControlName="bookable"
+              class="form-check-input"
+            />
+            <label class="form-check-label" for="bookable">Réservable</label>
+          </div>
+
+          <!-- Sélection du lieu -->
+          <div class="form-group mb-3">
+            <label for="locationId">Lieu</label>
+            <select
+              id="locationId"
+              formControlName="locationId"
+              class="form-control"
+              (change)="onLocationSelect($event)"
+              required
+            >
+              <option value="">Sélectionner un lieu</option>
+              <option *ngFor="let location of locations" [value]="location.id">{{ location.designation }}</option>
+            </select>
+            <div *ngIf="showForm.get('locationId')?.invalid && showForm.get('locationId')?.touched" class="text-danger">
+              Le lieu est requis.
+            </div>
+          </div>
+
+          <!-- Bouton de soumission -->
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+            <button type="submit" class="btn btn-primary" [disabled]="showForm.invalid">Sauvegarder</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
 </div>

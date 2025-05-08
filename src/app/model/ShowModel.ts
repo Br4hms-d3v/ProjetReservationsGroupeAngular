@@ -1,9 +1,12 @@
+import { Location } from './LocationModel';
+
 export interface Show {
-  id: number;
+  id: number | null;
   slug: string;
   title: string;
   posterUrl: string;
   duration: number;
-  created_in: Date;
+  created_in: string;
   bookable: boolean;
+  location: Location;
 }
