@@ -1,0 +1,17 @@
+<div class="container">
+    @for (show of shows; track show.id) {
+        <div class="card" style="width: 18rem;">
+            <img src="{{show.posterUrl}}" class="card-img-top" alt="{{show.title}}">
+            <div class="card-body">
+                <p class="card-text">{{ show.title }}</p>
+            </div>
+
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">Durée du spectacle: {{ show.duration }} minutes</li>
+                <li class="list-group-item">Date de création: {{ show.created_in | date:'d / MM / y' }}</li>
+                <button type="button" class="btn btn-secondary">Consulter</button>
+            </ul>
+
+        </div>
+    }
+</div>
