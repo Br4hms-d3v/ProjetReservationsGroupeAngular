@@ -2,7 +2,7 @@
 
   <div class="row mb-4">
     @for (show of shows; track show.id) {
-      <div class="col-md-2 mb-2">
+      <div class="col-md-3 mb-3">
         <div class="card" style="width: 18rem;">
           <img src="{{ show.posterUrl }}" class="card-img-top" alt="{{ show.title }}">
           <div class="card-body">
@@ -13,6 +13,7 @@
             <li class="list-group-item">Durée du spectacle: {{ show.duration }} minutes</li>
             <li class="list-group-item">Date de création: {{ show.created_in | date: 'd / MM / y' }}</li>
             <button type="button" class="btn btn-secondary">Consulter</button>
+            <button type="button" class="btn btn-warning">Modifier</button>
           </ul>
         </div>
       </div>
