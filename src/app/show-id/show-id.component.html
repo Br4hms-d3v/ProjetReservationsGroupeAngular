@@ -1,0 +1,44 @@
+@if (errorMessage) {
+  <div class="alert alert-danger" role="alert">
+    {{ errorMessage }}
+  </div>
+} @else {
+
+  <div class="container text-center">
+    <h1>{{ showById?.title }}</h1>
+    <div class="row">
+      <div class="col">
+        <img src="{{showById?.posterUrl}}" alt="{{showById?.title}}">
+      </div>
+      <div class="col">
+        <h4>Participants: </h4>
+        <br/>
+        <ul>
+          @for (artist of showById?.artists; track artist.id) {
+            <li>{{ artist.firstname }} {{ artist.lastname | uppercase }}</li>
+          }
+        </ul>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <h4>Date de représentation: </h4>
+        <br/>
+        <ol>
+          @for (representation of showById?.representations; track representation.id) {
+            <li>{{ representation.schedule | date:'dd MMMM yyyy \'à\' HH \'h\' mm' }}</li>
+          }
+        </ol>
+      </div>
+      <div class="col">
+        <h4>Commentaires: </h4>
+        <br/>
+        <ul>
+          @for (review of showById?.reviews; track review.id) {
+            <li>{{ review.review }}</li>
+          }
+        </ul>
+      </div>
+    </div>
+  </div>
+}
