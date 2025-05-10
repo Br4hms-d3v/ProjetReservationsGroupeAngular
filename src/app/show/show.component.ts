@@ -5,13 +5,15 @@ import {ShowService} from '../service/show.service';
 import {LocationService} from '../service/location.service';
 import {Show} from '../model/ShowModel';
 import {Location} from '../model/LocationModel';
+import {RouterLink} from '@angular/router';
 
 @Component({
   selector: 'app-show',
   standalone: true,
   imports: [
     CommonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    RouterLink
   ],
   providers: [DatePipe],
   templateUrl: './show.component.html',
