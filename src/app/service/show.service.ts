@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {Show} from "../model/ShowModel";
-import {Observable} from 'rxjs';
+import {catchError, Observable, throwError} from 'rxjs';
+import {ShowByIdModel} from '../model/ShowByIdModel';
 
 @Injectable({
   providedIn: 'root'
@@ -19,4 +20,18 @@ export class ShowService {
   addShow(show: Show): Observable<Show> {
     return this._http.post<Show>(`${this.apiServerUrl}/admin/show`, show);
   }
+
+  getShow(id: number) {
+    return this._http.get<ShowByIdModel>(`${this.apiServerUrl}/show/${id}`)
+      .pipe(catchError(this.notFoundById));
+  }
+
+  private notFoundById(error: HttpErrorResponse) {
+    if(error.status === 404) {
+      return throwError(()=> new Error('Spectacle non trouvé'));
+    } else {
+      return throwError(() => new Error('Une erreur s\'est produit. Veuillez réessayer plus tard'));
+    }
+  }
 }
+
