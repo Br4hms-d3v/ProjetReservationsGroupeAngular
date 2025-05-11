@@ -1,0 +1,68 @@
+<div class="container">
+  @if (show) {
+    <h1> Modifier spectacle </h1>
+    @if (succesMessage) {
+      <div class="alert alert-success" role="alert">
+        {{ succesMessage }}
+      </div>
+    } @else if (errorMessage) {
+      <div class="alert alert-danger" role="alert">
+        {{ errorMessage }}
+      </div>
+    }
+    <form (ngSubmit)="updateShow()">
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label for="titleInput" class="form-label">Titre</label>
+          <input type="text" class="form-control" id="titleInput" [(ngModel)]="show.title" (ngModelChange)="updateSlug()" name="title" required>
+        </div>
+        <div class="col-md-6 mb-3">
+          <label for="slugInput" class="form-label">Slug</label>
+          <input type="text" class="form-control" id="slugInput" [(ngModel)]="show.slug" name="slug" readonly>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="mb-3">
+          <label for="urlImageInput" class="form-label">Image</label>
+          <input type="url" class="form-control" id="urlImageInput" [(ngModel)]="show.posterUrl" name="posterUrl">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-4 mb-3">
+          <label for="dateInput" class="form-label">Date</label>
+          <input type="date" class="form-control" id="dateInput" [(ngModel)]="show.created_in" name="created_in">
+        </div>
+        <div class="col-md-4 mb-3">
+          <label for="durationInput" class="form-label">Durée</label>
+          <input type="number" class="form-control" id="durationInput" [(ngModel)]="show.duration" name="duration"
+                 min="1" required>
+        </div>
+
+        <div class="col-md-4 mb-3">
+          <label for="ReservableCheckbox" class="form-label">Reservable</label><br/>
+          <input type="checkbox" class="form-check-input" id="ReservableCheckbox" [(ngModel)]="show.bookable"
+                 name="bookable">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-5 mb-3">
+          <label for="locationSelect" class="form-label">Lieu</label>
+          <select class="form-select" id="locationSelect" [(ngModel)]="show.location.id" name="location" required>
+            @for (location of location; track location.id) {
+              <option [value]="location.id">{{ location.designation }}</option>
+            }
+          </select>
+        </div>
+        <div class="col-md-5 mb-3">
+          <button type="submit" class="btn btn-primary">Sauvegarder</button>
+        </div>
+      </div>
+
+    </form>
+
+    <button type="submit" class="btn btn-light" [routerLink]="['/spectacles']">retour</button>
+  }
+</div>
