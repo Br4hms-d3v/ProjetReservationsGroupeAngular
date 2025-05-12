@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {ActivatedRoute, RouterLink} from '@angular/router';
+import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import {ShowService} from '../service/show.service';
 import {Location} from '../model/LocationModel';
 import {Show} from '../model/ShowModel';
@@ -27,7 +27,7 @@ export class ShowEditComponent implements OnInit {
   errorMessage = '';
 
   constructor(
-    private route: ActivatedRoute, private showService: ShowService, private locationsService: LocationService
+    private route: ActivatedRoute, private showService: ShowService, private locationsService: LocationService, private router: Router
   ) {
   }
 
@@ -146,4 +146,29 @@ export class ShowEditComponent implements OnInit {
       );
     }
   }
+
+  onDeleteShow(id: number | null | undefined): void {
+    // Vérifie si l'ID est null ou undefined
+    if (id == null) {
+      console.error('L\'ID du spectacle est invalide');
+      return;  // Ne fait rien si l'ID n'est pas valide
+    }
+
+    if (confirm('Êtes-vous sûr de vouloir supprimer ce show ?')) {
+      this.showService.deleteShow(id).subscribe(
+        () => {
+          this.succesMessage = 'Le spectacle a bien été supprimé.';
+          this.router.navigate(['/spectacles']);  // Redirection après suppression
+          this.show = undefined;
+          this.location = undefined;
+        },
+        (error) => {
+          console.error('Erreur lors de la suppression du show:', error);
+          this.errorMessage = 'La suppression a échoué. Veuillez réessayer.';
+        }
+      );
+    }
+  }
+
+
 }

@@ -31,6 +31,10 @@ export class ShowService {
     return this._http.put<Show>(`${this.apiServerUrl}/admin/show/${id}`, show);
   }
 
+  deleteShow(id: number) {
+    return this._http.delete(`${this.apiServerUrl}/admin/show/${id}`);
+  }
+
   private notFoundById(error: HttpErrorResponse) {
     if (error.status === 404) {
       return throwError(() => new Error('Spectacle non trouvé'));
