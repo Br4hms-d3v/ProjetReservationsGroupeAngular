@@ -48,6 +48,7 @@ export class ShowEditComponent implements OnInit {
       },
       (error) => {
         console.error('Erreur lors de la récupération des données', error)
+        this.errorMessage = 'Le spectacle n\'existe pas';
         this.loading = false;
       }
     );

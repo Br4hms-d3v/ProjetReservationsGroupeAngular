@@ -14,7 +14,8 @@
       <div class="row">
         <div class="col-md-6 mb-3">
           <label for="titleInput" class="form-label">Titre</label>
-          <input type="text" class="form-control" id="titleInput" [(ngModel)]="show.title" (ngModelChange)="updateSlug()" name="title" required>
+          <input type="text" class="form-control" id="titleInput" [(ngModel)]="show.title"
+                 (ngModelChange)="updateSlug()" name="title" required>
         </div>
         <div class="col-md-6 mb-3">
           <label for="slugInput" class="form-label">Slug</label>
@@ -57,12 +58,17 @@
           </select>
         </div>
         <div class="col-md-5 mb-3">
-          <button type="submit" class="btn btn-primary">Sauvegarder</button>
+          <button id="btnSave" type="submit" class="btn btn-primary">Sauvegarder</button>
+          <button id="btnDelete" type="submit" class="btn btn-danger">Supprimer</button>
         </div>
       </div>
-
     </form>
 
+    <hr/>
     <button type="submit" class="btn btn-light" [routerLink]="['/spectacles']">retour</button>
+  } @else {
+    <div class="alert alert-danger" role="alert">
+      {{ errorMessage }}
+    </div>
   }
 </div>
