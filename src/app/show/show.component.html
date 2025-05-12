@@ -13,7 +13,8 @@
             <li class="list-group-item">Durée du spectacle: {{ show.duration }} minutes</li>
             <li class="list-group-item">Date de création: {{ show.created_in | date: 'd / MM / y' }}</li>
             <button type="button" class="btn btn-secondary" [routerLink]="['/spectacle/', show.id]">Consulter</button>
-            <button type="button" class="btn btn-warning" [routerLink]="['/mise-a-jour-spectacle/', show.id]">Modifier</button>
+            <button type="button" class="btn btn-warning" [routerLink]="['/mise-a-jour-spectacle/', show.id]">Modifier
+            </button>
           </ul>
         </div>
       </div>

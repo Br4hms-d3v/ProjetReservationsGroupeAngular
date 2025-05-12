@@ -1,11 +1,7 @@
 .container {
-  display: grid;
-  gap: 25px;
-  padding-left: 50px;
-  padding-right: 50px;
   max-height: 100%;
-  max-width: 100%;
-  overflow-y: auto;
+  max-width: 99%;
+  overflow-y: scroll;
 }
 
 .card {
@@ -15,5 +11,4 @@
 img {
   width: 100%;
   height: 380px;
-  object-fit: cover; /* Pour garder le ratio sans déformation */
 }
