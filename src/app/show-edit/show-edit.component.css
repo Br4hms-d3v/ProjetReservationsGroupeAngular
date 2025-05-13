@@ -1,0 +1,56 @@
+.container{
+  max-height: 100%;
+  max-width: 90%;
+  overflow-y: auto;
+}
+h1 {
+  text-align: center;
+  padding-top: 20px;
+  padding-bottom: 30px;
+}
+
+#btnSave{
+  margin-top: 30px;
+  margin-right: 25px;
+  margin-left: 25px;
+}
+
+#btnDelete{
+  margin-top: 30px;
+}
+
+
+/* Styles pour les écrans de 768px et moins (tablettes et mobiles) */
+@media (max-width: 768px) {
+  h1 {
+    padding-top: 30px;
+    padding-bottom: 20px;
+  }
+
+  #btnSave,
+  #btnDelete {
+    width: 100%;  /* Les boutons prennent toute la largeur de l'écran */
+    margin: 10px 0; /* Marge verticalement entre les boutons */
+  }
+
+  #btnSave {
+    margin-right: 0;
+    margin-left: 0;
+  }
+
+  #btnDelete {
+    margin-top: 10px; /* Un peu moins de marge pour le bouton de suppression */
+  }
+}
+
+/* Styles pour les petits écrans (en-dessous de 480px) */
+@media (max-width: 480px) {
+  h1 {
+    font-size: 24px; /* Réduit la taille de la police pour les petits écrans */
+  }
+
+  #btnSave,
+  #btnDelete {
+    padding: 12px; /* Augmente un peu la taille des boutons */
+  }
+}
